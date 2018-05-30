@@ -6,7 +6,7 @@
 /*   By: rfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 22:29:07 by rfontain          #+#    #+#             */
-/*   Updated: 2018/05/30 19:26:15 by rfontain         ###   ########.fr       */
+/*   Updated: 2018/05/30 19:58:14 by rfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	ft_printseg(int x1, int y1, int x2, int y2, void *param)
 	x = x1;
 	while (x < x2 || y < y2)
 	{
-		mlx_pixel_put((*data).mlx, (*data).win, x, y, 0X000000);
+		mlx_pixel_put((*data).mlx, (*data).win, x, y, 0XFFFFFF);
 		if ((e = e + e10) >= 0.5)
 		{
 			y = y + 1;
@@ -71,18 +71,34 @@ void	ft_printseg(int x1, int y1, int x2, int y2, void *param)
 	}
 }
 
-void	ft_putgrid(char **lines)
+void	ft_putgrid(char **lines, void *param)
 {
 	int i;
 	int j;
+	int x;
+	int y;
 
-	while (line[i])
+	x = 50;
+	i = 0;
+	while (lines[i])
 	{
-		while (line[i][j])
+		y = 50;
+		j = 0;
+		while (lines[i][j] && lines[i][j] == '0')
 		{
-			if (lines[i - 1][j])
-				
+			if (i > 0 && lines[i - 1][j])
+				ft_printseg(x, y, x, y - 10, param);
+			if (lines[i + 1][j])
+				ft_printseg(x, y, x, y + 10, param);
+			if (lines[i][j - 2] && lines[i][j - 2] == '0')
+				ft_printseg(x, y, x - 10, y, param);
+			if (lines[i][j + 2] && lines[i][j - 2] == '0')
+				ft_printseg(x, y, x + 10, y, param);
+			y += 10;
+			j++;
 		}
+		x += 10;
+		i++;
 	}
 }
 
@@ -112,7 +128,7 @@ int main (int ac, char **av)
 	y = 105;
 	data.mlx = mlx_init();
 	data.win = mlx_new_window(data.mlx, 420, 420, "42");
-	while (y < 315)
+	/*while (y < 315)
 	{
 		x = 105;
 		while (x < 315)
@@ -122,7 +138,8 @@ int main (int ac, char **av)
 		}
 		y++;
 	}
-	ft_printseg(105, 210, 315, 210, &data);
+	ft_printseg(105, 210, 315, 210, &data);*/
+	ft_putgrid(&lines[0], &data);
 	mlx_key_hook(data.win, deal_key, &data);
 	mlx_loop(data.mlx);
 }
