@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_for.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/14 02:05:27 by rfontain          #+#    #+#             */
-/*   Updated: 2018/04/14 03:19:01 by rfontain         ###   ########.fr       */
+/*   Created: 2018/04/23 19:30:54 by rfontain          #+#    #+#             */
+/*   Updated: 2018/05/17 22:24:02 by rfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "libft.h"
 
-t_list	*ft_lstnew(void const *content, size_t content_size)
+int		ft_for(int i, int delimiter, int inc)
 {
-	t_list	*new;
+	static long ind = -2147483649;
 
-	new = NULL;
-	if ((new = (t_list*)malloc(sizeof(t_list))) == NULL)
-		return (NULL);
-	if ((new->content = (void*)content) == NULL)
-		new->content_size = 0;
-	else
+	if (ind == -2147483649)
+		ind = (long)i;
+	ind += (long)inc;
+	if (inc > 0)
 	{
-		new->content = (void*)ft_memalloc(content_size);
-		ft_memcpy(new->content, content, content_size);
-		new->content_size = content_size;
+		if (ind == (long)(delimiter + 1))
+			return (0);
 	}
-	new->next = NULL;
-	return (new);
+	else if (inc < 0)
+	{
+		if (ind == (long)(delimiter + 1))
+			return (0);
+	}
+	return (1);
 }

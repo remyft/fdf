@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_minprintf.c                                     :+:      :+:    :+:   */
+/*   ft_strjoinfree.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/14 05:11:31 by rfontain          #+#    #+#             */
-/*   Updated: 2018/04/14 05:11:50 by rfontain         ###   ########.fr       */
+/*   Created: 2018/05/28 20:11:42 by rfontain          #+#    #+#             */
+/*   Updated: 2018/05/28 20:18:48 by rfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_minprintf(char *str, int nb1, int nb2)
+char	*ft_strjoinfree(char *s1, char *s2, int i)
 {
-	int i;
-	int nb;
+	char *str;
 
-	i = 0;
-	nb = 1;
-	while (str[i])
+	str = ft_strjoin(s1, s2);
+	if (i == 1)
+		free(s1);
+	else if (i == 2)
+		free(s2);
+	else if (i == 3)
 	{
-		if (str[i] == '%')
-		{
-			(nb == 1 ? ft_putnbr(nb1) : ft_putnbr(nb2));
-			nb++;
-			i++;
-		}
-		else
-			ft_putchar(str[i]);
-		i++;
+		free(s1);
+		free(s2);
 	}
+	return (str);
 }

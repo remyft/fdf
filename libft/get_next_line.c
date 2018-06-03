@@ -6,7 +6,7 @@
 /*   By: rfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 13:56:40 by rfontain          #+#    #+#             */
-/*   Updated: 2018/06/01 20:45:58 by rfontain         ###   ########.fr       */
+/*   Updated: 2018/06/03 16:38:01 by rfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,13 @@ int					read_line(int fd, t_list *file)
 {
 	char	buff[BUFF_SIZE + 1];
 	int		n;
-	int		res;
 
-	res = 0;
 	while ((n = read(fd, buff, BUFF_SIZE)) > 0)
 	{
-		res += n;
 		buff[n] = '\0';
 		if (!(file->content = ft_strjoin(file->content, buff)))
 			return (0);
-		if (ft_occuc(buff, '\n'))
+		if (ft_occuc(buff, CHAR_SEP))
 			break ;
 	}
 	return (1);
@@ -48,9 +45,10 @@ static t_list		*check_fd(int fd, t_list **file)
 	return (ret);
 }
 
-static char			*ft_realloc(char *str1, char *str2, int n)
+static char			*ft_ralloc(char *str1, char *str2, int n)
 {
-	str1 = malloc(n + 1);
+	if (!(str1 = malloc(n + 1)))
+		return (NULL);
 	*(str1 + n) = '\0';
 	str1 = ft_strncpy(str1, str2, n);
 	free(str2);
@@ -73,13 +71,13 @@ int					get_next_line(const int fd, char **line)
 	if (!(len = (int)ft_strlen(current->content)))
 		return (0);
 	*line = ft_strnew(1);
-	n = ft_copyuntil(line, current->content, '\n');
+	n = ft_copyuntil(line, current->content, CHAR_SEP);
 	if (n < len)
 	{
-		tmp = malloc(len - (n + 1));
+		tmp = ft_strnew(len - (n + 1));
 		tmp = ft_strcpy(tmp, (current->content + n + 1));
 		free(current->content);
-		current->content = ft_realloc(current->content, tmp, len - n - 1);
+		current->content = ft_ralloc(current->content, tmp, len - n - 1);
 	}
 	else
 		ft_strclr(current->content);

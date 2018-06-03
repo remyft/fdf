@@ -6,7 +6,7 @@
 /*   By: rfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/29 22:29:07 by rfontain          #+#    #+#             */
-/*   Updated: 2018/05/31 17:29:15 by rfontain         ###   ########.fr       */
+/*   Updated: 2018/06/03 19:04:29 by rfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 #include <mlx.h>
 #include "libft/libft.h"
 
-# define LEN_SEG 120
-# define WIDTH 960
-# define HEIGHT 735
+# define LEN_SEG 75
+# define WIDTH 1420
+# define HEIGHT 930
 
 typedef struct	s_data
 {
@@ -24,12 +24,11 @@ typedef struct	s_data
 	void	*win;
 }				t_data;
 
-typedef struct	s_file
+typedef struct	s_pos
 {
-	int width;
-	int heigth;
-	char *tab;
-}				t_file;
+	int x;
+	int y;
+}				t_pos;
 
 typedef struct	s_grid
 {
@@ -46,7 +45,7 @@ int		deal_key(int key, void *param)
 	if (key == 53 || key == 65307)
 	{
 		mlx_destroy_window((*data).mlx, (*data).win);
-		exit(1);
+		exit(0);
 	}
 	return (0);
 }
@@ -84,29 +83,25 @@ void	ft_printseg(int x1, int y1, int x2, int y2, void *param, int col)
 	}
 }
 
-void	ft_putgrid(t_grid grid, void *param)
+void	ft_putgrid(t_grid *grid, void *param)
 {
 	int i;
 	int j;
 	int x;
 	int y;
 
-	y = 50;
+	y = 0;
 	i = 0;
-	while (i < grid.height)
+	while (i < grid->height)
 	{
-		x = 50;
+		x = 0;
 		j = 0;
-		while (j < grid.width)
+		while (j < grid->width)
 		{
-		//	if (i > 0)
-		//		ft_printseg(x, y, x, y - LEN_SEG, param, grid.tab[i][j]);
-			if (i < grid.height - 1)
-				ft_printseg(x, y, x, y + LEN_SEG, param, grid.tab[i + 1][j]);
-		//	if (j > 0)
-		//		ft_printseg(x, y, x - LEN_SEG, y, param, grid.tab[i][j]);
-			if (j < grid.width - 1)
-				ft_printseg(x, y, x + LEN_SEG, y, param, grid.tab[i][j + 1]);
+			if (i < grid->height - 1)
+				ft_printseg(x, y, x, y + LEN_SEG, param, grid->tab[i + 1][j]);
+			if (j < grid->width - 1)
+				ft_printseg(x, y, x + LEN_SEG, y, param, grid->tab[i][j + 1]);
 			x += LEN_SEG;
 			j++;
 		}
@@ -120,6 +115,8 @@ int		ft_widthtab(char *tab)
 	int i;
 	int res;
 
+	res = 0;
+	i = 0;
 	while (tab[i])
 	{
 		if (ft_isdigit(tab[i]))
@@ -147,15 +144,14 @@ t_grid	ft_stoii(char **lines)
 	i = 0;
 	while (lines[grid.height])
 		grid.height++;
-	grid.height--;
-	grid.tab = malloc(sizeof(int*) * grid.height);
+	grid.tab = (int**)malloc(sizeof(int*) * grid.height);
 	grid.width = ft_widthtab(lines[0]);
-	while (lines[i])
+	while (i < grid.height)
 	{
 		j = 0;
-		grid.tab[i] = malloc(sizeof(int) * grid.width);
+		grid.tab[i] = (int*)malloc(sizeof(int) * grid.width);
 		l = 0;
-		while (lines[i][j])
+		while (l < grid.width)
 		{
 			if (ft_isdigit(lines[i][j]))
 			{
@@ -173,10 +169,40 @@ t_grid	ft_stoii(char **lines)
 	return (grid);
 }
 
-int main (int ac, char **av)
+t_pos	**ft_iitotpos(t_grid grid)
+{
+	int i;
+	int j;
+	t_pos **ret;
+	int xec;
+	int yec;
+
+	i = 0;
+	yec = 50;
+	ret = (t_pos**)malloc(sizeof(t_pos*) * grid.height);
+	while (i < grid.height)
+	{
+		j = 0;
+		xec = 50;
+		ret[i] = (t_pos*)malloc(sizeof(t_pos) * grid.width);
+		while (j < grid.width)
+		{
+			ret[i][j].x = xec;
+			xec += LEN_SEG;
+			ret[i][j].y = yec;
+			j++;
+		}
+		yec += LEN_SEG;
+		i++;
+	}
+	return (ret);
+}
+
+int main(int ac, char **av)
 {
 	t_data data;
 	t_grid grid;
+	t_pos **tab;
 	int fd;
 	int i;
 	int j;
@@ -187,28 +213,27 @@ int main (int ac, char **av)
 	if (ac == 2)
 	{
 		fd = open(av[1], O_RDONLY);
-		ft_putchar('H');
 		while (get_next_line(fd, &lines[i]) == 1)
-		{
-			ft_putchar(i++ + 48);
-			}
-		ft_putchar('A');
-		lines[i] = "\0";
-		grid = (ft_stoii(lines));
-		ft_putchar('I');
-		/*i = 0;
+			i++;
+		lines[i] = NULL;
+		grid = ft_stoii(lines);
+		tab = ft_iitotpos(grid);
+		i = 0;
 		while (i < grid.height)
 		{
 			j = 0;
 			while (j < grid.width)
-				ft_putnbr(grid.tab[i][j++]);
-			ft_putchar('\n');
+			{
+				printf("tab[%d][%d] : %d:%d\n", i, j, tab[i][j].x, tab[i][j].y);
+				j++;
+			}
 			i++;
-		}*/
+		}
 	}
 	data.mlx = mlx_init();
 	data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "42");
-	ft_putgrid(grid, &data);
+	ft_putgrid(&grid, &data);
+	ft_printseg(50, 50, 300, 350, &data, 0);
 	mlx_key_hook(data.win, deal_key, &data);
 	mlx_loop(data.mlx);
 }
