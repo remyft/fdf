@@ -15,8 +15,8 @@
 #include "libft/libft.h"
 
 # define LEN_SEG 50
-# define WIDTH 960
-# define HEIGHT 720
+# define WIDTH 620
+# define HEIGHT 420
 
 typedef struct	s_pos
 {
@@ -206,35 +206,36 @@ t_grid	ft_stoii(char **lines)
 	t_grid	grid;
 	int		**tab;
 	char	tmp[32];
-	t_pos	i;
+	int		i;
+	int		j;
 	int		k;
 	int		l;
 
 	grid.height = 0;
-	i.x = 0;
+	i = 0;
 	while (lines[grid.height])
 		grid.height++;
 	tab = (int**)malloc(sizeof(int*) * grid.height);
 	grid.width = ft_widthtab(lines[0]);
-	while (i.x < grid.height)
+	while (i < grid.height)
 	{
-		i.y = 0;
-		tab[i.x] = (int*)malloc(sizeof(int) * grid.width);
+		j = 0;
+		tab[i] = (int*)malloc(sizeof(int) * grid.width);
 		l = 0;
 		while (l < grid.width)
 		{
-			if (ft_isdigit(lines[i.x][i.y]))
+			if (ft_isdigit(lines[i][j]))
 			{
 				k = 0;
-				while (ft_isdigit(lines[i.x][i.y]))
-					tmp[k++] = lines[i.x][i.y++];
+				while (ft_isdigit(lines[i][j]))
+					tmp[k++] = lines[i][j++];
 				tmp[k] = '\0';
-				tab[i.x][l++] = ft_atoi(tmp);
+				tab[i][l++] = ft_atoi(tmp);
 			}
 			else
-				i.y++;
+				j++;
 		}
-		i.x++;
+		i++;
 	}
 	grid.tab = ft_iitotpos(grid.height, grid.width, tab);
 	return (grid);
@@ -258,18 +259,67 @@ void	ft_movegrid(t_grid grid, int x, int y)
 	}
 }
 
+void	ft_xtrans(t_grid grid, int height, int width, int z)
+{
+	int i;
+	int j;
+	int x;
+	int lim;
+
+	(width % 2 != 0) ? (lim = width / 2) : (lim = width / 2 + 1);
+	i = 0;
+	x = 1 * z;
+	while (i < height)
+	{
+		j = 0;
+		while (j < width)
+		{
+			if (j < lim)
+				grid.tab[i][j].x += x * (lim - j);
+			else if (j > lim)
+				grid.tab[i][j].x -= x * (j - lim);
+			j++;
+		}
+		i++;
+	}
+}
+
+void	ft_ytrans(t_grid grid, int height, int width, int z)
+{
+	int i;
+	int j;
+	int x;
+	int lim;
+
+	(height % 2 != 0) ? (lim = height / 2) : (lim = height / 2 + 1);
+	i = 0;
+	x = 1 * z;
+	while (i < height)
+	{
+		j = 0;
+		while (j < width)
+		{
+			if (i < lim)
+				grid.tab[i][j].y += x * (lim - i);
+			else if (i > lim)
+				grid.tab[i][j].y -= x * (i - lim);
+			j++;
+		}
+		i++;
+	}
+}
+
 int		deal_key(int key, void *param)
 {
 	t_data *data;
 
 	data = param;
-	printf("key : %d\n", key);
 	if (key == 53 || key == 65307)
 	{
 		mlx_destroy_window((*data).mlx, (*data).win);
 		exit(0);
 	}
-	if (key == 65362 || key == 65361 || key == 65363 || key == 65364 || key == 105)
+	if (key == 65362 || key == 65361 || key == 65363 || key == 65364 || key == 105 || key == 61 || key == 45)
 	{
 		mlx_clear_window((*data).mlx, (*data).win);
 		if (key == 65362)
@@ -280,6 +330,16 @@ int		deal_key(int key, void *param)
 			ft_movegrid((*data).grid, 0, LEN_SEG);
 		else if (key == 65363)
 			ft_movegrid((*data).grid, LEN_SEG, 0);
+		else if (key == 61)
+		{
+			ft_xtrans((*data).grid, (*data).grid.height, (*data).grid.width, 1);
+			ft_ytrans((*data).grid, (*data).grid.height, (*data).grid.width, 1);
+		}
+		else if (key == 45)
+		{
+			ft_xtrans((*data).grid, (*data).grid.height, (*data).grid.width, -1);
+			ft_ytrans((*data).grid, (*data).grid.height, (*data).grid.width, -1);
+		}
 		else
 			ft_initimage((*data).grid);
 		ft_putgrid((*data).grid, data);
@@ -287,6 +347,7 @@ int		deal_key(int key, void *param)
 	
 	return (0);
 }
+
 
 int main(int ac, char **av)
 {
