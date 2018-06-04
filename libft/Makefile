@@ -6,7 +6,7 @@
 #    By: rfontain <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/27 19:43:45 by rfontain          #+#    #+#              #
-#    Updated: 2018/06/03 16:34:38 by rfontain         ###   ########.fr        #
+#    Updated: 2018/06/04 23:34:20 by rfontain         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,8 +49,8 @@ OBJ = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) -c $(SRCS) -I $(INC)
-	ar rsc $(NAME) $(OBJ)
+	@$(CC) $(CFLAGS) -c $(SRCS) -I $(INC)
+	@ar rsc $(NAME) $(OBJ)
 	
 clean:
 	rm -f $(OBJ)
