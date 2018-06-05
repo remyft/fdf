@@ -6,7 +6,7 @@
 /*   By: rfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 23:10:00 by rfontain          #+#    #+#             */
-/*   Updated: 2018/06/04 23:35:08 by rfontain         ###   ########.fr       */
+/*   Updated: 2018/06/05 17:25:02 by rfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void			ft_initimage(t_grid grid);
 void			ft_movegrid(t_grid grid, int x, int y);
 void			ft_ytrans(t_grid grid, int height, int width, int z);
 void			ft_xtrans(t_grid grid, int height, int width, int z);
+void			ft_xrot(t_grid grid, int height, int width, int z);
 
 void			ft_diffint(int *x, int *y, t_grid grid);
 void			ft_printseg(int x1, int y1, int x2, int y2, void *param);

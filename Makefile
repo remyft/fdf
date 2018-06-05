@@ -6,7 +6,7 @@
 #    By: dbaffier <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/05 13:53:00 by dbaffier          #+#    #+#              #
-#    Updated: 2018/06/04 23:31:43 by rfontain         ###   ########.fr        #
+#    Updated: 2018/06/05 16:43:12 by rfontain         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,9 +24,9 @@ INC_DIR = includes
 INCS = -I $(LIB_PATH)/ -I $(INC_DIR)
 
 SRCS =	srcs/fdf.c					\
-		srcs/ft_calculate.c			\
-		srcs/ft_deal_image.c		\
-		srcs/ft_tools.c
+		srcs/calculate.c			\
+		srcs/deal_image.c			\
+		srcs/tools.c
 
 OK = "     	\033[32m"[OK]"\033[00m"
 

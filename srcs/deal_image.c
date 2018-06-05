@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_deal_image.c                                    :+:      :+:    :+:   */
+/*   deal_image.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/04 23:06:15 by rfontain          #+#    #+#             */
-/*   Updated: 2018/06/04 23:29:55 by rfontain         ###   ########.fr       */
+/*   Created: 2018/06/05 16:42:26 by rfontain          #+#    #+#             */
+/*   Updated: 2018/06/05 20:59:29 by rfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,43 @@ void	ft_ytrans(t_grid grid, int height, int width, int z)
 	}
 }
 
+void	ft_xrot(t_grid grid, int height, int width, int z)
+{
+	int i;
+	int j;
+	int limj;
+	int limi;
+	int x;
+
+	(width % 2 != 0) ? (limj = width / 2) : (limj = width / 2 + 1);
+	(height % 2 != 0) ? (limi = height / 2) : (limi = height / 2 + 1);
+	i = 0;
+	x = 1;
+	while (i < height)
+	{
+		j = 0;
+		while (j < width)
+		{
+			if (j < limj)
+			{
+				if (i < limi)
+					grid.tab[i][j].y += ((x * z) * (limj - j)) * (limi - i);
+				else
+					grid.tab[i][j].y -= ((x * z) * (limj - j)) * (i - limi);
+			}
+			else if (j > limj)
+			{
+				if (i < limi)
+					grid.tab[i][j].y -= ((x * z) * (j - limj)) * (limi - i);
+				else
+					grid.tab[i][j].y += ((x * z) * (j - limj)) * (i - limi);
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
 void	ft_movegrid(t_grid grid, int x, int y)
 {
 	int i;
@@ -82,8 +119,6 @@ void	ft_movegrid(t_grid grid, int x, int y)
 
 void	ft_initimage(t_grid grid)
 {
-	int i;
-	int j;
 	int diffx;
 	int diffy;
 
@@ -92,17 +127,7 @@ void	ft_initimage(t_grid grid)
 	ft_diffint(&diffx, &diffy, grid);
 	diffx = WIDTH / 2 - diffx;
 	diffy = HEIGHT / 2 - diffy;
-	i = 0;
-	while (i < grid.height)
-	{
-		j = 0;
-		while (j < grid.width)
-		{
-			grid.tab[i][j].x += diffx;
-			grid.tab[i][j++].y += diffy;
-		}
-		i++;
-	}
+	ft_movegrid(grid, diffx, diffy);
 }
 
 void	ft_putgrid(t_grid grid, void *param)
