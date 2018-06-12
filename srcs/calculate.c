@@ -6,7 +6,7 @@
 /*   By: rfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/05 16:42:47 by rfontain          #+#    #+#             */
-/*   Updated: 2018/06/07 18:49:16 by rfontain         ###   ########.fr       */
+/*   Updated: 2018/06/12 18:47:02 by rfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,13 @@ void	ft_printseg(int x1, int y1, int x2, int y2, void *param)
 	t_data *data;
 
 	data = param;
-	dx = x2 - x1;
-	dy = y2 - y1;
+	if ((dx = x2 - x1) < 0)
+		dx = -dx;
+	if ((dy = y2 - y1) < 0)
+		dy = -dy;
+	//dx = x2 - x1;// < 0 ?: -dx ;
+	//dy = y2 - y1;// < 0 ?: -dy;
+	printf("dx : %d\ndy : %d\n", dx, dy);
 	y = y1;
 	e = 0.0;
 	if (dx == 0)
@@ -33,15 +38,27 @@ void	ft_printseg(int x1, int y1, int x2, int y2, void *param)
 	e10 = (float) dy / dx;
 	e01 = -1.0;
 	x = x1;
-	while (x < x2 || y < y2)
+	printf("y1 : %d\n", y1);
+	while (x != x2 || y != y2)
 	{
 		mlx_pixel_put((*data).mlx, (*data).win, x, y, 16777215);
 		if ((e = e + e10) >= 0.5)
 		{
-			y = y + 1;
+			if (y < y2)
+				y++;
+			else if (y > y2)
+				y--;
+			printf("y : %d\n", y);
+			/*y = (y <= y2) ?: y++;
+			y = (y >= y2) ?: y--;*/
 			e = e + e01;
 		}
-		x == x2 ? x2 : x++;
+		if (x < x2)
+			x++;
+		else if (x > x2)
+			x--;
+		/*x = x <= x2 ?: x++;
+		x = x >= x2 ?: x--;*/
 	}
 }
 

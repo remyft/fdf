@@ -6,7 +6,7 @@
 /*   By: rfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 23:10:00 by rfontain          #+#    #+#             */
-/*   Updated: 2018/06/07 18:41:39 by rfontain         ###   ########.fr       */
+/*   Updated: 2018/06/12 14:36:35 by rfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct	s_grid
 	t_pos		**tab;
 	int			height;
 	int			width;
+	char		mod;
 }				t_grid;
 
 typedef struct	s_data
@@ -56,7 +57,8 @@ void			ft_xrot(t_grid grid, int height, int width, int z);
 void			ft_diffint(int *x, int *y, t_grid grid);
 void			ft_printseg(int x1, int y1, int x2, int y2, void *param);
 
-void			ft_cartoiso(t_grid grid, int height, int width);
+void			ft_cartoiso(t_grid grid);
+void			ft_isotocart(t_grid grid);
 
 int				deal_key(int key, void *param);
 

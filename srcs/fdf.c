@@ -6,7 +6,7 @@
 /*   By: rfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/04 23:13:24 by rfontain          #+#    #+#             */
-/*   Updated: 2018/06/07 19:19:53 by rfontain         ###   ########.fr       */
+/*   Updated: 2018/06/12 17:19:14 by rfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 int		deal_key(int key, void *param)
 {
 	t_data *data;
+	int i;
+	int j;
 
 	data = param;
 	printf("key : %d\n", key);
@@ -25,7 +27,7 @@ int		deal_key(int key, void *param)
 		exit(0);
 	}
 	//if (key == 65362 || key == 65361 || key == 65363 || key == 65364 || key == 61 || key == 45 || key == 105)
-	if (key == 34 || key == 126 || key == 123 || key == 125 || key == 124 || key == 69 || key == 78 || key == 0 || key == 2)
+	if (key == 34 || key == 126 || key == 123 || key == 125 || key == 124 || key == 69 || key == 78 || key == 0 || key == 2 || key == 8)
 	{
 		mlx_clear_window((*data).mlx, (*data).win);
 		if (key == 126)//if (key == 65362)
@@ -56,11 +58,26 @@ int		deal_key(int key, void *param)
 			ft_xtrans((*data).grid, (*data).grid.height, (*data).grid.width, -1);
 			ft_xrot((*data).grid, (*data).grid.height, (*data).grid.width, -1);
 		}
+		else if (key == 8)
+			(*data).grid.mod == 'i' ? ft_isotocart((*data).grid) : ft_cartoiso((*data).grid);
 		else
 			ft_initimage((*data).grid);
-		ft_putgrid((*data).grid, data);
+		//ft_putgrid((*data).grid, data);
 	}
-
+	printf("Avant\n");
+	i = 0;
+	while (i < (*data).grid.height)
+	{
+		j = 0;
+		while (j < (*data).grid.width)
+		{
+			printf("tab[%d][%d] : %d:%d\n", i, j, (*data).grid.tab[i][j].x, (*data).grid.tab[i][j].y);
+			j++;
+		}
+		i++;
+	}
+	ft_putgrid((*data).grid, data);
+	printf("Apres\n");
 	return (0);
 }
 
@@ -84,58 +101,22 @@ int main(int ac, char **av)
 		data.grid = ft_stoii(lines);
 		ft_initimage(data.grid);
 		/*i = 0;
-		while (i < data.grid.height)
-		{
-			j = 0;
-			while (j < data.grid.width)
-			{
-				printf("tab[%d][%d] : %d:%d\n", i, j, data.grid.tab[i][j].x, data.grid.tab[i][j].y);
-				j++;
-			}
-			i++;
-		}*/
+		  while (i < data.grid.height)
+		  {
+		  j = 0;
+		  while (j < data.grid.width)
+		  {
+		  printf("tab[%d][%d] : %d:%d\n", i, j, data.grid.tab[i][j].x, data.grid.tab[i][j].y);
+		  j++;
+		  }
+		  i++;
+		  }*/
 	}
 	data.mlx = mlx_init();
 	data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "42");
-	i = 0;
-	while (i < data.grid.height)
-	{
-		j = 0;
-		while (j < data.grid.width)
-		{
-			ft_putchar('[');
-			ft_putnbr(data.grid.tab[i][j].x);
-			ft_putchar(',');
-			ft_putnbr(data.grid.tab[i][j].y);
-			ft_putchar(']');
-			j++;
-		}
-		ft_putchar('\n');
-		i++;
-	}
-	ft_cartoiso(data.grid, data.grid.height, data.grid.width);
+	ft_initimage(data.grid);
 	ft_putgrid(data.grid, &data);
-	i = 0;
-	while (i < data.grid.height)
-	{
-		j = 0;
-		while (j < data.grid.width)
-		{
-			ft_putstr("[");
-			ft_putnbr(i);
-			ft_putchar(':');
-			ft_putnbr(data.grid.tab[i][j].x);
-			ft_putstr(",");
-			ft_putnbr(j);
-			ft_putchar(':');
-			ft_putnbr(data.grid.tab[i][j].y);
-			ft_putchar(']');
-			j++;
-		}
-		ft_putchar('\n');
-		i++;
-	}
-	ft_printseg(325, 325, 375, 350, &data);
 	mlx_key_hook(data.win, deal_key, &data);
+	data.grid.mod = 'c';
 	mlx_loop(data.mlx);
 }

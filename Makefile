@@ -6,7 +6,7 @@
 #    By: dbaffier <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/05 13:53:00 by dbaffier          #+#    #+#              #
-#    Updated: 2018/06/05 16:43:12 by rfontain         ###   ########.fr        #
+#    Updated: 2018/06/12 17:58:28 by rfontain         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,13 +30,13 @@ SRCS =	srcs/fdf.c					\
 
 OK = "     	\033[32m"[OK]"\033[00m"
 
-CFLAGS +=  -Wall -Wextra -Werror
+CFLAGS +=  #-Wall -Wextra -Werror
 
 OBJS = $(SRCS:.c=.o)
 
 $(NAME): $(LIB) $(OBJS)
-	@$(CC) $(INCS) -o $@ $^ $(LIB_LINK) -lmlx -framework OpenGl -framework AppKit
-	@echo "Compilling" [ $(NAME) ] $(OK)
+	$(CC) $(INCS) -o $@ $^ $(LIB_LINK) -lmlx -framework OpenGl -framework AppKit
+	echo "Compilling" [ $(NAME) ] $(OK)
 
 $(LIB):
 	@make -C $(LIB_PATH)
