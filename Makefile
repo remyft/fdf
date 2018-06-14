@@ -35,7 +35,7 @@ CFLAGS +=  -Wall -Wextra -Werror
 OBJS = $(SRCS:.c=.o)
 
 $(NAME): $(LIB) $(OBJS)
-	@$(CC) $(INCS) -o $@ $^ $(LIB_LINK) -lmlx -framework OpenGl -framework AppKit
+	@$(CC) $(INCS) -o $@ $^ $(LIB_LINK) -lmlx -lXext -lX11 #-framework OpenGl -framework AppKit
 	@echo "Compilling" [ $(NAME) ] $(OK)
 
 $(LIB):

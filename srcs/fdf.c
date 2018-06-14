@@ -19,29 +19,29 @@ int		deal_key(int key, void *param)
 
 	data = param;
 	printf("key : %d\n", key);
-	if (key == 53)//if (key = 65307)
+	/*if (key == 53)*/if (key == 65307)
 	{
 		mlx_destroy_window((*data).mlx, (*data).win);
 		exit(0);
 	}
-	//if (key == 65362 || key == 65361 || key == 65363 || key == 65364 || key == 61 || key == 45 || key == 105)
-	if (key == 34 || key == 126 || key == 123 || key == 125 || key == 124 || key == 69 || key == 78 || key == 0 || key == 2)
+	if (key == 65362 || key == 65361 || key == 65363 || key == 65364 || key == 61 || key == 45 || key == 105)
+	//if (key == 34 || key == 126 || key == 123 || key == 125 || key == 124 || key == 69 || key == 78 || key == 0 || key == 2)
 	{
 		mlx_clear_window((*data).mlx, (*data).win);
-		if (key == 126)//if (key == 65362)
+		/*if (key == 126)*/if (key == 65362)
 			ft_movegrid((*data).grid, 0, -LEN_SEG);
-		else if (key == 123)//if key == 65361)
+		else /*if (key == 123)*/if (key == 65361)
 			ft_movegrid((*data).grid, -LEN_SEG, 0);
-		else if (key == 125)//if (key == 65364)
+		else /*if (key == 125)*/if (key == 65364)
 			ft_movegrid((*data).grid, 0, LEN_SEG);
-		else if (key == 124)//if (key == 65363)
+		else /*if (key == 124)*/if (key == 65363)
 			ft_movegrid((*data).grid, LEN_SEG, 0);
-		else if (key == 78)//if (key == 61)
+		else /*if (key == 78)*/if (key == 61)
 		{
 			ft_xtrans((*data).grid, (*data).grid.height, (*data).grid.width, 1);
 			ft_ytrans((*data).grid, (*data).grid.height, (*data).grid.width, 1);
 		}
-		else if (key == 69)//if (key == 45)
+		else /*if (key == 69)*/if (key == 45)
 		{
 			ft_xtrans((*data).grid, (*data).grid.height, (*data).grid.width, -1);
 			ft_ytrans((*data).grid, (*data).grid.height, (*data).grid.width, -1);
