@@ -6,7 +6,7 @@
 /*   By: rfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/30 22:55:30 by rfontain          #+#    #+#             */
-/*   Updated: 2018/08/28 06:58:20 by rfontain         ###   ########.fr       */
+/*   Updated: 2018/09/01 15:49:54 by rfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # define WIDTH 2000
 # define HEIGHT 1500
 # define LEN_SEG 50
-
 
 typedef struct	s_pos
 {
@@ -41,6 +40,10 @@ typedef struct	s_env
 	int			lenseg;
 	int			width;
 	int			height;
+	int			menu;
+	int			mvx;
+	int			mvy;
+	int			mv_len;
 }				t_env;
 
 int				deal_key(int key, void *param);
@@ -52,16 +55,18 @@ t_pos			**transform_to_pos(int height, int width, int **tab,
 void			print_seg(t_pos pos1, t_pos pos2, t_pos col, t_env env);
 void			change_height(void *param, int hg);
 
-void			cartoiso(void *param);
-void			isotocar(void *param);
 void			center_grid(void *param);
 void			put_grid(t_pos **grid, int height, int width, t_env env);
-void			move_grid(void *param, int mvx, int mvy);
+int				move_grid(void *param);
 
-t_pos			convert_pos(int col1, int col2);
+t_pos			c_pos(int col1, int col2);
 int				**set_value(t_env env, int **value);
-void			zoom_image(void *paran, int zoom);
 void			ft_puterror(int n);
 void			put_menu(void *param);
+void			set_move(t_env *env, int mvx, int mvy);
+
+void			cartoiso(void *param);
+void			isotocar(void *param);
+void			zoom_image(void *paran, int zoom);
 
 #endif

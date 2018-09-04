@@ -6,7 +6,7 @@
 /*   By: rfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/14 02:05:27 by rfontain          #+#    #+#             */
-/*   Updated: 2018/04/14 03:19:01 by rfontain         ###   ########.fr       */
+/*   Updated: 2018/09/03 22:56:28 by rfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ t_list	*ft_lstnew(void const *content, size_t content_size)
 		new->content_size = content_size;
 	}
 	new->next = NULL;
+	new->prev = NULL;
 	return (new);
 }

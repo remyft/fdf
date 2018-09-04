@@ -6,7 +6,7 @@
 /*   By: rfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/30 23:09:57 by rfontain          #+#    #+#             */
-/*   Updated: 2018/08/28 07:03:21 by rfontain         ###   ########.fr       */
+/*   Updated: 2018/09/02 02:04:44 by rfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,14 @@ static void	move_image(int key, void *param)
 	env = param;
 	mlx_clear_window((*env).mlx, (*env).win);
 	if (key == 126)
-		move_grid(param, 0, -20);
-	if (key == 123)
-		move_grid(param, -20, 0);
-	if (key == 125)
-		move_grid(param, 0, 20);
-	if (key == 124)
-		move_grid(param, 20, 0);
+		set_move(env, 0, -5);
+	else if (key == 123)
+		set_move(env, -5, 0);
+	else if (key == 125)
+		set_move(env, 0, 5);
+	else if (key == 124)
+		set_move(env, 5, 0);
+	move_grid(param);
 	put_grid((*env).pgrid, (*env).height, (*env).width, (*env));
 }
 
@@ -39,17 +40,27 @@ static void	deal_image(int key, void *param)
 	if (key == 8 && (*env).iso)
 	{
 		isotocar(param);
-		center_grid(param);
 		(*env).iso = 0;
 	}
 	else if (key == 34 && !(*env).iso)
 	{
 		cartoiso(param);
-		center_grid(param);
 		(*env).iso = 1;
 	}
-	else if (key == 15)
-		center_grid(param);
+	center_grid(param);
+	int i = 0;
+		while (i < env->height)
+		{
+			int j = 0;
+			while (j < env->width)
+			{
+				printf("%d %d ", env->pgrid[i][j].x, env->pgrid[i][j].y);
+				j++;
+			}
+			i++;
+			printf("\n");
+		}
+
 	put_grid((*env).pgrid, (*env).height, (*env).width, (*env));
 }
 
@@ -61,14 +72,14 @@ static void	image_zoom(int key, void *param)
 	mlx_clear_window((*env).mlx, (*env).win);
 	if (key == 69)
 	{
-		zoom_image(param, 10);
+		zoom_image(param, (*env).mv_len);
 		if ((*env).iso)
 			cartoiso(param);
 		center_grid(param);
 	}
 	if (key == 78)
 	{
-		zoom_image(param, -10);
+		zoom_image(param, -(*env).mv_len);
 		if ((*env).iso)
 			cartoiso(param);
 		center_grid(param);
@@ -117,6 +128,12 @@ int			deal_key(int key, void *param)
 	else if (key == 32 || key == 2)
 		height_change(key, param);
 	else if (key == 46)
-		put_menu(param);
+	{
+		(*env).menu = ((*env).menu == 0) ? 1 : 0;
+		mlx_clear_window((*env).mlx, (*env).win);
+		put_grid((*env).pgrid, (*env).height, (*env).width, (*env));
+	}
+	else if (key >= 83 && key <= 92)
+		(*env).mv_len = (key - 82) * 2;
 	return (0);
 }

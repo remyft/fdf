@@ -6,41 +6,56 @@
 #    By: dbaffier <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/05 13:53:00 by dbaffier          #+#    #+#              #
-#    Updated: 2018/08/28 02:48:57 by rfontain         ###   ########.fr        #
+#    Updated: 2018/09/04 07:38:48 by rfontain         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = fdf
+NAME = ft_ls
 
-CC = gcc
+CC = gcc -g
 
 RM = rm -rf
+
+RED = "\x1b[0;31;40m"
+RESET = "\x1b[1;37;40m"
+GREY = "\x1b[1;30;40m"
+GREEN = "\x1b[1;32;40m"
 
 LIB_PATH = libft
 LIB = $(LIB_PATH)/libft.a
 LIB_LINK = -L $(LIB_PATH) -lft
 
-INC_DIR = includes
+INC_DIR = include
 INCS = -I $(LIB_PATH)/ -I $(INC_DIR)
 
-SRCS =	srcs/fdf.c					\
-		srcs/calculate.c			\
-		srcs/deal_key.c				\
-		srcs/grid.c					\
-		srcs/deal_image.c			\
-		srcs/tools.c
+SRCS =	srcs/fdf.c				\
+		srcs/calculate.c		\
+		srcs/deal_key.c			\
+		srcs/grid.c				\
+		srcs/deal_image.c		\
+		srcs/tools.c			\
+		srcs/transformation.c	\
 
-OK = "     	\033[32m"[OK]"\033[00m"
+OK =      $(GREEN)[OK]$(RESET)		
+
+NEWLINE = $(shell echo "")
 
 CFLAGS +=  -Wall -Wextra -Werror
 
 OBJS = $(SRCS:.c=.o)
 
-$(NAME): $(LIB) $(OBJS)
-	@$(CC) $(INCS) -o $@ $^ $(LIB_LINK) -lmlx -framework OpenGl -framework AppKit
-	@echo "Compilling" [ $(NAME) ] $(OK)
+$(NAME): $(NEWLINE) $(OBJS) $(LIB)
+	@$(CC) $(INCS) $^ -o $@ $(LIB_LINK) -lmlx -framework OpenGl -framework AppKit
+	@echo ""
+	@echo $(GREY)" Compilling" $(RESET) [ $(NAME) ] $(OK)
+
+%.o: %.c
+	@echo $(RED)" ᚘ  "$(RESET) | tr -d '\n'
+	$(CC) $(CFLAGS) $(INC) -o $@ -c $< 
 
 $(LIB):
+	@echo ""
+	@echo " " | tr -d '\n'
 	@make -C $(LIB_PATH)
 
 all: $(NAME)
@@ -48,13 +63,23 @@ all: $(NAME)
 clean:
 	@$(RM) $(OBJS)
 	@make -C $(LIB_PATH) clean
-	@echo "cleaning :" [ $(NAME) ] $(OK)
+	@echo $(GREY)" Cleaning :" $(RESET) [ $(NAME) ] $(OK)
 
 fclean: clean
 	@$(RM) $(NAME)
 	@make -C $(LIB_PATH) fclean
-	@echo "Deleting.." [ $(NAME) ] $(OK)
+	@echo $(GREY)" Deleting.." $(RESET) [ $(NAME) ] $(OK)
 
-re: fclean all
+reclean: clean
+	@$(RM) $(NAME)
+	@make -C $(LIB_PATH) fclean
+	@echo $(GREY)" Deleting.." $(RESET) [ $(NAME) ] $(OK)
+	@echo ""
+
+re: reclean all
+
+nn:
+	norminette $(SRCS)
+	norminette $(INC_DIR)
 
 .PHONY: clean fclean all re

@@ -6,7 +6,7 @@
 /*   By: rfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/04 23:07:03 by rfontain          #+#    #+#             */
-/*   Updated: 2018/08/27 02:34:10 by rfontain         ###   ########.fr       */
+/*   Updated: 2018/09/03 22:55:23 by rfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct		s_list
 	void			*content;
 	size_t			content_size;
 	struct s_list	*next;
+	struct s_list	*prev;
 }					t_list;
 
 int					ft_memcmp(const void *s1, const void *s2, size_t n);

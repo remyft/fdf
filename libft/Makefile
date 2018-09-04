@@ -6,7 +6,7 @@
 #    By: rfontain <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/27 19:43:45 by rfontain          #+#    #+#              #
-#    Updated: 2018/08/27 02:34:20 by rfontain         ###   ########.fr        #
+#    Updated: 2018/08/31 12:24:37 by rfontain         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ SRCS =	ft_memalloc.c		ft_putendl.c		ft_strcpy.c			\
 		ft_putchar_fd.c		ft_strcmp.c			ft_strmap.c			\
 		ft_strstr.c			ft_lstadd.c			ft_lstiter.c		\
 		ft_lstnew.c			ft_lstdelone.c		ft_lstdel.c			\
-		ft_lstmap.c			ft_occuc.c			ft_strjoinfree.c		\
+		ft_lstmap.c			ft_occuc.c			ft_strjoinfree.c	\
 		ft_lstadd_back.c	ft_putstrstr.c		ft_putstrstr_fd.c	\
 		ft_strrev.c			ft_copyuntil.c		ft_strjoinch.c		\
 		ft_for.c			ft_strup.c			ft_strlow.c			\
@@ -44,18 +44,25 @@ SRCS =	ft_memalloc.c		ft_putendl.c		ft_strcpy.c			\
 
 INC = / 
 
+OK = "ᚕ"
+
+
 OBJ = $(SRCS:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) -c $(SRCS) -I $(INC)
+	@echo ""
 	@ar rsc $(NAME) $(OBJ)
-	
+
+%.o: %.c
+	@echo $(OK) | tr -d '\n'
+	@$(CC) $(CFLAGS) -I $(INC) -o $@ -c $?
+
 clean:
-	rm -f $(OBJ)
+	@rm -f $(OBJ)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
