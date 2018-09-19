@@ -6,7 +6,7 @@
 /*   By: rfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/28 02:40:42 by rfontain          #+#    #+#             */
-/*   Updated: 2018/09/01 15:49:35 by rfontain         ###   ########.fr       */
+/*   Updated: 2018/09/19 03:54:09 by rfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,11 @@ void	put_menu(void *param)
 	mlx_string_put((*env).mlx, (*env).win, 10, 110, 0xFFFFFF, str);
 	mlx_string_put((*env).mlx, (*env).win, 10, 130, 0xFFFFFF, "u : height +");
 	mlx_string_put((*env).mlx, (*env).win, 10, 150, 0xFFFFFF, "d : height -");
+	mlx_string_put((*env).mlx, (*env).win, 10, 170, 0xFFFFFF, "[1-9] : power");
 	print_seg(c_pos(5, 5), c_pos(295, 5), c_pos(10, 10), (*env));
-	print_seg(c_pos(5, 175), c_pos(295, 175), c_pos(10, 10), (*env));
-	print_seg(c_pos(5, 5), c_pos(5, 175), c_pos(10, 10), (*env));
-	print_seg(c_pos(295, 5), c_pos(295, 175), c_pos(10, 10), (*env));
+	print_seg(c_pos(5, 195), c_pos(295, 195), c_pos(10, 10), (*env));
+	print_seg(c_pos(5, 5), c_pos(5, 195), c_pos(10, 10), (*env));
+	print_seg(c_pos(295, 5), c_pos(295, 195), c_pos(10, 10), (*env));
 }
 
 void	set_move(t_env *env, int mvx, int mvy)
