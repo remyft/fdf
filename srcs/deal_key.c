@@ -6,12 +6,11 @@
 /*   By: rfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/30 23:09:57 by rfontain          #+#    #+#             */
-/*   Updated: 2018/09/02 02:04:44 by rfontain         ###   ########.fr       */
+/*   Updated: 2018/09/19 03:29:25 by rfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
-#include <stdio.h>
 
 static void	move_image(int key, void *param)
 {
@@ -48,19 +47,6 @@ static void	deal_image(int key, void *param)
 		(*env).iso = 1;
 	}
 	center_grid(param);
-	int i = 0;
-		while (i < env->height)
-		{
-			int j = 0;
-			while (j < env->width)
-			{
-				printf("%d %d ", env->pgrid[i][j].x, env->pgrid[i][j].y);
-				j++;
-			}
-			i++;
-			printf("\n");
-		}
-
 	put_grid((*env).pgrid, (*env).height, (*env).width, (*env));
 }
 

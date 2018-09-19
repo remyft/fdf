@@ -6,12 +6,11 @@
 /*   By: rfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/30 22:57:40 by rfontain          #+#    #+#             */
-/*   Updated: 2018/09/02 02:04:01 by rfontain         ###   ########.fr       */
+/*   Updated: 2018/09/19 03:38:48 by rfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
-#include <stdio.h>
 
 static int	set_struct(t_env *env, char **av)
 {
@@ -38,19 +37,6 @@ int			main(int ac, char **av)
 		if (set_struct(&env, av))
 			ft_puterror(3);
 		center_grid(&env);
-		int i = 0;
-		while (i < env.height)
-		{
-			int j = 0;
-			while (j < env.width)
-			{
-				printf("%d %d ", env.pgrid[i][j].x, env.pgrid[i][j].y);
-				j++;
-			}
-			i++;
-			printf("\n");
-		}
-
 		put_grid(env.pgrid, env.height, env.width, env);
 		mlx_key_hook(env.win, deal_key, &env);
 		mlx_loop(env.mlx);
