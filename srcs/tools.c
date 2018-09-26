@@ -6,7 +6,7 @@
 /*   By: rfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/28 02:40:42 by rfontain          #+#    #+#             */
-/*   Updated: 2018/09/19 03:54:09 by rfontain         ###   ########.fr       */
+/*   Updated: 2018/09/19 07:04:35 by rfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void	ft_puterror(int n)
 		ft_putstr("Le fichier est vide.");
 	else if (n == 2)
 		ft_putstr("Vous devez rentrer un fichier et seulement un.");
+	else if (n == 3)
+		ft_putstr("Le fichier est invalide.");
 	else
 		ft_putstr("Une erreur a eu lieu.");
 	ft_putchar('\n');

@@ -6,7 +6,7 @@
 /*   By: rfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/26 12:27:12 by rfontain          #+#    #+#             */
-/*   Updated: 2018/09/01 16:15:47 by rfontain         ###   ########.fr       */
+/*   Updated: 2018/09/26 14:58:06 by rfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,14 @@ static int		**transform_grid(int width, int height, char **lines)
 	int		l;
 
 	if ((tab = (int**)malloc(sizeof(int*) * height)) == NULL)
-		return (NULL);
+		ft_puterror(4);
 	i = 0;
 	while (i < height)
 	{
 		j = 0;
 		l = 0;
 		if ((tab[i] = (int*)malloc(sizeof(int) * width)) == NULL)
-			return (NULL);
+			ft_puterror(4);
 		while (j < width)
 		{
 			if (ft_isdigit(lines[i][l]))
@@ -80,24 +80,24 @@ t_pos			**transform_to_pos(int height, int width, int **tab, t_env env)
 	t_pos	pos;
 	t_pos	**ret;
 
-	i = 0;
+	i = -1;
 	pos.y = 0;
-	ret = (t_pos**)malloc(sizeof(t_pos*) * height);
-	while (i < height)
+	if (!(ret = (t_pos**)malloc(sizeof(t_pos*) * height)))
+		ft_puterror(4);
+	while (++i < height)
 	{
-		j = 0;
+		j = -1;
 		pos.x = 0;
-		ret[i] = (t_pos*)malloc(sizeof(t_pos) * width);
-		while (j < width)
+		if (!(ret[i] = (t_pos*)malloc(sizeof(t_pos) * width)))
+			ft_puterror(4);
+		while (++j < width)
 		{
 			ret[i][j].x = (pos.x - tab[i][j]);
 			pos.x += env.lenseg;
 			ret[i][j].y = (pos.y - tab[i][j]);
 			ret[i][j].value = tab[i][j];
-			j++;
 		}
 		pos.y += env.lenseg;
-		i++;
 	}
 	return (ret);
 }
@@ -114,7 +114,11 @@ t_pos			**recup_grid(t_env *env)
 		ft_puterror(0);
 	lines[i] = NULL;
 	(*env).height = i;
+	i = 0;
 	(*env).width = width_tab(lines[0]);
+	while (lines[++i])
+		if (width_tab(lines[i]) != (*env).width)
+			return (NULL);
 	(*env).igrid = transform_grid((*env).width, (*env).height, lines);
 	(*env).value = set_value((*env), (*env).igrid);
 	(*env).lenseg = 750 / (*env).width;

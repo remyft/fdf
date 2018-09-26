@@ -6,7 +6,7 @@
 /*   By: rfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/30 22:52:23 by rfontain          #+#    #+#             */
-/*   Updated: 2018/08/28 06:35:11 by rfontain         ###   ########.fr       */
+/*   Updated: 2018/09/26 14:42:26 by rfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,8 @@ void		change_height(void *param, int hg)
 		while (j < (*env).width)
 		{
 			if ((*env).value[i][j] > 0)
-				(*env).igrid[i][j++] += hg;
-			else
-				j++;
+				(*env).igrid[i][j] += (hg * (*env).value[i][j]) * (*env).lenseg / 50;
+			j++;
 		}
 		i++;
 	}
