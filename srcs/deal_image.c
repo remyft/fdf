@@ -6,7 +6,7 @@
 /*   By: rfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/26 18:21:53 by rfontain          #+#    #+#             */
-/*   Updated: 2018/09/01 16:04:15 by rfontain         ###   ########.fr       */
+/*   Updated: 2018/09/27 17:55:07 by rfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	center_grid(void *param)
 			(*env).pgrid[i][j].y += diff.y;
 		}
 	}
+	free(ext);
 }
 
 void	put_grid(t_pos **grid, int height, int width, t_env env)

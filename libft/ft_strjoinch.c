@@ -6,13 +6,13 @@
 /*   By: dbaffier <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 11:22:48 by dbaffier          #+#    #+#             */
-/*   Updated: 2018/04/20 17:12:16 by rfontain         ###   ########.fr       */
+/*   Updated: 2018/09/27 16:21:26 by rfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoinch(char const *s1, char c)
+char	*ft_strjoinch(char *s1, char c)
 {
 	char		*str;
 	size_t		i;
@@ -27,5 +27,6 @@ char	*ft_strjoinch(char const *s1, char c)
 	while (++i < s1_len)
 		*(str + i) = *(s1 + i);
 	*(str + i) = c;
+	free(s1);
 	return (str);
 }

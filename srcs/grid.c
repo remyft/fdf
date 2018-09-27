@@ -6,7 +6,7 @@
 /*   By: rfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/26 12:27:12 by rfontain          #+#    #+#             */
-/*   Updated: 2018/09/26 14:58:06 by rfontain         ###   ########.fr       */
+/*   Updated: 2018/09/27 18:58:52 by rfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,9 @@ t_pos			**transform_to_pos(int height, int width, int **tab, t_env env)
 			ft_puterror(4);
 		while (++j < width)
 		{
-			ret[i][j].x = (pos.x - tab[i][j]);
+			ret[i][j].x = (pos.x - (env.lenseg / (tab[i][j] / 2)));
 			pos.x += env.lenseg;
-			ret[i][j].y = (pos.y - tab[i][j]);
+			ret[i][j].y = (pos.y - (env.lenseg / (tab[i][j] / 2)));
 			ret[i][j].value = tab[i][j];
 		}
 		pos.y += env.lenseg;

@@ -6,7 +6,7 @@
 /*   By: rfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/30 23:09:57 by rfontain          #+#    #+#             */
-/*   Updated: 2018/09/19 03:29:25 by rfontain         ###   ########.fr       */
+/*   Updated: 2018/09/27 18:26:03 by rfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	move_image(int key, void *param)
 
 static void	deal_image(int key, void *param)
 {
-	t_env *env;
+	t_env	*env;
 
 	env = param;
 	mlx_clear_window((*env).mlx, (*env).win);
@@ -45,6 +45,14 @@ static void	deal_image(int key, void *param)
 	{
 		cartoiso(param);
 		(*env).iso = 1;
+	}
+	else if (key == 15)
+	{
+		(*env).lenseg = 750 / (*env).width;
+		(*env).pgrid = transform_to_pos((*env).height, (*env).width,
+				(*env).igrid, (*env));
+		if ((*env).iso)
+			cartoiso(param);
 	}
 	center_grid(param);
 	put_grid((*env).pgrid, (*env).height, (*env).width, (*env));
@@ -103,7 +111,7 @@ int			deal_key(int key, void *param)
 	if (key == 53)
 	{
 		mlx_destroy_window((*env).mlx, (*env).win);
-		exit(0);
+		free_env((*env), 1);
 	}
 	if (key == 34 || key == 8 || key == 15)
 		deal_image(key, param);

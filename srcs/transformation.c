@@ -6,7 +6,7 @@
 /*   By: rfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 08:47:04 by rfontain          #+#    #+#             */
-/*   Updated: 2018/08/31 08:50:32 by rfontain         ###   ########.fr       */
+/*   Updated: 2018/09/27 18:25:14 by rfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,10 @@ void	zoom_image(void *param, int zoom)
 	t_env	*env;
 
 	env = param;
-	(*env).lenseg += zoom;
+	if ((*env).lenseg + zoom > 0)
+		(*env).lenseg += zoom;
+	else
+		(*env).lenseg = 1;
 	(*env).pgrid = transform_to_pos((*env).height, (*env).width, (*env).igrid,
 			(*env));
 }

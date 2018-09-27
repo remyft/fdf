@@ -6,7 +6,7 @@
 /*   By: rfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/30 22:55:30 by rfontain          #+#    #+#             */
-/*   Updated: 2018/09/01 15:49:54 by rfontain         ###   ########.fr       */
+/*   Updated: 2018/09/27 18:05:59 by rfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct	s_env
 	int			**value;
 	t_pos		**pgrid;
 	t_pos		wsz;
+	char		*name;
 	int			iso;
 	int			lenseg;
 	int			width;
@@ -46,6 +47,8 @@ typedef struct	s_env
 	int			mv_len;
 }				t_env;
 
+int				set_struct(t_env *env, char *name);
+
 int				deal_key(int key, void *param);
 
 t_pos			**recup_grid(t_env *env);
@@ -54,6 +57,7 @@ t_pos			**transform_to_pos(int height, int width, int **tab,
 
 void			print_seg(t_pos pos1, t_pos pos2, t_pos col, t_env env);
 void			change_height(void *param, int hg);
+void			free_env(t_env env, int ex);
 
 void			center_grid(void *param);
 void			put_grid(t_pos **grid, int height, int width, t_env env);

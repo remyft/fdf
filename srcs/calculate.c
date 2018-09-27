@@ -6,7 +6,7 @@
 /*   By: rfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/30 22:52:23 by rfontain          #+#    #+#             */
-/*   Updated: 2018/09/26 14:42:26 by rfontain         ###   ########.fr       */
+/*   Updated: 2018/09/27 18:11:28 by rfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,11 +102,33 @@ void		change_height(void *param, int hg)
 		while (j < (*env).width)
 		{
 			if ((*env).value[i][j] > 0)
-				(*env).igrid[i][j] += (hg * (*env).value[i][j]) * (*env).lenseg / 50;
+				(*env).igrid[i][j] += (hg * (*env).value[i][j])
+					* (*env).lenseg / 50;
 			j++;
 		}
 		i++;
 	}
 	(*env).pgrid = transform_to_pos((*env).height, (*env).width, (*env).igrid,
 			(*env));
+}
+
+void		free_env(t_env env, int ex)
+{
+	int i;
+
+	i = 0;
+	while (i < env.height)
+	{
+		free(env.igrid[i]);
+		free(env.value[i]);
+		free(env.pgrid[i]);
+		i++;
+	}
+	free(env.igrid);
+	free(env.value);
+	free(env.pgrid);
+	free(env.name);
+	close(env.fd);
+	if (ex == 1)
+		exit(0);
 }
