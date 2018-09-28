@@ -6,7 +6,7 @@
 /*   By: rfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 08:47:04 by rfontain          #+#    #+#             */
-/*   Updated: 2018/09/28 15:41:13 by rfontain         ###   ########.fr       */
+/*   Updated: 2018/09/28 18:35:54 by rfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ void	isotocar(void *param)
 		i++;
 	}
 }
+
+# include <stdio.h>
 
 void	zoom_image(void *param, int zoom)
 {
