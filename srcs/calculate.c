@@ -6,7 +6,7 @@
 /*   By: rfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/30 22:52:23 by rfontain          #+#    #+#             */
-/*   Updated: 2018/09/27 18:11:28 by rfontain         ###   ########.fr       */
+/*   Updated: 2018/09/29 01:44:59 by rfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ void		change_height(void *param, int hg)
 		}
 		i++;
 	}
+	free_pgrid(env);
 	(*env).pgrid = transform_to_pos((*env).height, (*env).width, (*env).igrid,
 			(*env));
 }

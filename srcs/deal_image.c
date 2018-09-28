@@ -6,7 +6,7 @@
 /*   By: rfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/26 18:21:53 by rfontain          #+#    #+#             */
-/*   Updated: 2018/09/27 17:55:07 by rfontain         ###   ########.fr       */
+/*   Updated: 2018/09/28 21:06:01 by rfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,4 +114,22 @@ int		move_grid(void *param)
 		i++;
 	}
 	return (0);
+}
+
+void	reset_igrid(t_env env)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < env.height)
+	{
+		j = 0;
+		while (j < env.width)
+		{
+			env.igrid[i][j] = env.value[i][j];
+			j++;
+		}
+		i++;
+	}
 }

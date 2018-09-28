@@ -6,7 +6,7 @@
 /*   By: rfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/30 22:55:30 by rfontain          #+#    #+#             */
-/*   Updated: 2018/09/27 18:05:59 by rfontain         ###   ########.fr       */
+/*   Updated: 2018/09/29 01:44:44 by rfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct	s_env
 }				t_env;
 
 int				set_struct(t_env *env, char *name);
+void			free_pgrid(t_env *env);
 
 int				deal_key(int key, void *param);
 
@@ -62,6 +63,7 @@ void			free_env(t_env env, int ex);
 void			center_grid(void *param);
 void			put_grid(t_pos **grid, int height, int width, t_env env);
 int				move_grid(void *param);
+void			reset_igrid(t_env env);
 
 t_pos			c_pos(int col1, int col2);
 int				**set_value(t_env env, int **value);

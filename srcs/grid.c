@@ -6,7 +6,7 @@
 /*   By: rfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/26 12:27:12 by rfontain          #+#    #+#             */
-/*   Updated: 2018/09/28 15:32:05 by rfontain         ###   ########.fr       */
+/*   Updated: 2018/09/29 01:49:48 by rfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ static int		**transform_grid(int width, int height, char **lines)
 
 	if ((tab = (int**)malloc(sizeof(int*) * height)) == NULL)
 		ft_puterror(4);
-	i = 0;
-	while (i < height)
+	i = -1;
+	while (++i < height)
 	{
 		j = 0;
 		l = 0;
@@ -68,7 +68,6 @@ static int		**transform_grid(int width, int height, char **lines)
 			l++;
 		}
 		free(lines[i]);
-		i++;
 	}
 	return (tab);
 }

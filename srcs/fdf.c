@@ -6,11 +6,21 @@
 /*   By: rfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/30 22:57:40 by rfontain          #+#    #+#             */
-/*   Updated: 2018/09/27 18:41:47 by rfontain         ###   ########.fr       */
+/*   Updated: 2018/09/29 01:44:26 by rfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
+
+void	free_pgrid(t_env *env)
+{
+	int i;
+
+	i = -1;
+	while (++i < env->height)
+		free(env->pgrid[i]);
+	free(env->pgrid);
+}
 
 int		set_struct(t_env *env, char *name)
 {

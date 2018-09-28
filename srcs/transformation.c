@@ -6,7 +6,7 @@
 /*   By: rfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 08:47:04 by rfontain          #+#    #+#             */
-/*   Updated: 2018/09/28 20:55:51 by rfontain         ###   ########.fr       */
+/*   Updated: 2018/09/29 01:45:55 by rfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void	zoom_image(void *param, int zoom)
 		}
 		i++;
 	}
+	free_pgrid(env);
 	(*env).pgrid = transform_to_pos((*env).height, (*env).width, (*env).igrid,
 			(*env));
 }

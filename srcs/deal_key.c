@@ -6,7 +6,7 @@
 /*   By: rfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/30 23:09:57 by rfontain          #+#    #+#             */
-/*   Updated: 2018/09/28 15:55:36 by rfontain         ###   ########.fr       */
+/*   Updated: 2018/09/29 01:45:34 by rfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ static void	deal_image(int key, void *param)
 	else if (key == 15)
 	{
 		(*env).lenseg = 750 / (*env).width;
-		(*env).pgrid = transform_to_pos((*env).height, (*env).width,
-				(*env).igrid, (*env));
+		reset_igrid((*env));
 	}
+	free_pgrid(env);
 	env->pgrid = transform_to_pos(env->height, env->width, env->igrid, (*env));
 	if ((*env).iso)
 		cartoiso(param);
