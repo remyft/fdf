@@ -6,7 +6,7 @@
 /*   By: rfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/30 23:09:57 by rfontain          #+#    #+#             */
-/*   Updated: 2018/09/27 18:26:03 by rfontain         ###   ########.fr       */
+/*   Updated: 2018/09/28 15:55:36 by rfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,23 +37,18 @@ static void	deal_image(int key, void *param)
 	env = param;
 	mlx_clear_window((*env).mlx, (*env).win);
 	if (key == 8 && (*env).iso)
-	{
-		isotocar(param);
 		(*env).iso = 0;
-	}
 	else if (key == 34 && !(*env).iso)
-	{
-		cartoiso(param);
 		(*env).iso = 1;
-	}
 	else if (key == 15)
 	{
 		(*env).lenseg = 750 / (*env).width;
 		(*env).pgrid = transform_to_pos((*env).height, (*env).width,
 				(*env).igrid, (*env));
-		if ((*env).iso)
-			cartoiso(param);
 	}
+	env->pgrid = transform_to_pos(env->height, env->width, env->igrid, (*env));
+	if ((*env).iso)
+		cartoiso(param);
 	center_grid(param);
 	put_grid((*env).pgrid, (*env).height, (*env).width, (*env));
 }
@@ -88,17 +83,11 @@ static void	height_change(int key, void *param)
 	env = param;
 	mlx_clear_window((*env).mlx, (*env).win);
 	if (key == 32)
-	{
 		change_height(param, 10);
-		if ((*env).iso)
-			cartoiso(param);
-	}
 	else
-	{
 		change_height(param, -10);
-		if ((*env).iso)
-			cartoiso(param);
-	}
+	if ((*env).iso)
+		cartoiso(param);
 	center_grid(param);
 	put_grid((*env).pgrid, (*env).height, (*env).width, (*env));
 }

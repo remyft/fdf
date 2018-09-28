@@ -6,7 +6,7 @@
 /*   By: rfontain <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 08:47:04 by rfontain          #+#    #+#             */
-/*   Updated: 2018/09/27 18:25:14 by rfontain         ###   ########.fr       */
+/*   Updated: 2018/09/28 15:41:13 by rfontain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,25 @@ void	isotocar(void *param)
 void	zoom_image(void *param, int zoom)
 {
 	t_env	*env;
+	int		i;
+	int		j;
 
 	env = param;
+	i = 0;
 	if ((*env).lenseg + zoom > 0)
 		(*env).lenseg += zoom;
 	else
 		(*env).lenseg = 1;
+	while (i < env->height)
+	{
+		j = 0;
+		while (j < env->width)
+		{
+			env->igrid[i][j] = 0;
+			j++;
+		}
+		i++;
+	}
 	(*env).pgrid = transform_to_pos((*env).height, (*env).width, (*env).igrid,
 			(*env));
 }
