@@ -1,6 +1,6 @@
 # FDF
-_Graphic wireframe representation of a relief landscape in C
-![Alt text](.img/example.png?raw=true "42")
+_Graphic wireframe representation of a relief landscape in C_
+
 [Subject](https://github.com/remyft/fdf/blob/master/fdf.fr.pdf)
 
 ## Build & Run
@@ -10,7 +10,7 @@ git clone https://github.com/remyft/fdf.git
 cd fdf && make
 ./fdf test_maps/42.fdf
 ```
-
+![Alt text](.img/example.png?raw=true "42")
 ## Import method
 
 * Using minimal graphic library
