@@ -11,11 +11,7 @@ cd fdf && make
 ./fdf test_maps/42.fdf
 ```
 ![Alt text](.img/example.png?raw=true "42")
-## Import method
 
-* Using minimal graphic library
-* Line tracing with Bresenham algorithm
-* Keyboard event
 
 ## Author
 
